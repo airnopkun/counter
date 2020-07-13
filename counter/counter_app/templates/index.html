@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Counter</title>
+            {% load static %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" href="{% static 'style.css' %}">
+        </head>
+        <body>
+            <div id="info">
+                <div id="counter">
+                    <h1>Counter</h1>
+                    {% if request.session.count == 1 %}
+                        <p>{{ request.session.count }} time.</p>
+                    {% else %}
+                        <p>{{ request.session.count }} times.</p>
+                    {% endif %}
+                </div>
+                <div id="views">
+                    <h1>Views</h1>
+                    {% if request.session.views == 1 %}
+                        <p>{{ request.session.views }} view.</p>
+                    {% else %}
+                        <p>{{ request.session.views }} views.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <form action="/increment_new" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control col-sm-4 offset-sm-4" name="increment" placeholder="Increment Counter"/>
+                    <button type="submit" class="btn btn-primary">Change Increment</button>
+                </div>
+            </form>
+            <div id="buttons">
+                <form action="/destroy_session">
+                    <button type="submit" class="btn btn-primary">Reset</button>
+                </form>
+                <form action="/increment_two">
+                    <button type="submit" class="btn btn-primary">+2</button>
+                </form>
+            </div>
+        </body>
+    </html>
